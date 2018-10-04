@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/Article">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>ExpressMapper - .Net mapper</title>
+    <meta content="Expressmapper - lightweight, lighting fast and easy to use .Net mapper to map one type of object(s) to another in automated way. ExpressMapper relies completely on the expression trees. It is a great and faster alternative to Automapper and other .Net mappers." data-attr-name="content" http-equiv="description" name="description">
+    <meta content="Expressmapper, .Net mapper, Mapper, alternatives to Automapper, mapping one object to another" data-attr-name="content" http-equiv="keywords" name="keywords">
+
+    <meta itemprop="name" content="Expressmapper">
+    <meta itemprop="description" content="Expressmapper - lightweight, lighting fast and easy to use .Net mapper to map one type of object(s) to another in automated way. ExpressMapper relies completely on the expression trees. It is a great and faster alternative to Automapper and other .Net mappers.">
+    <meta itemprop="image" content="http://www.expressmapper.org/fb.png">
+
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
+    <link rel="stylesheet" href="styles/bundles/layout.min.css?v=e292de1c-5bba-4372-a782-15e589afe625">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:100,300,400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
+    <script type="application/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-63048032-1', 'auto');
+        ga('require', 'linkid', 'linkid.js');
+        ga('send', 'pageview');
+
+        var _gaq = _gaq || [];
+        var pluginUrl =
+                '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+        _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+        _gaq.push(['_setAccount', 'UA-63048032-1']);
+        _gaq.push(['_trackPageview']);
+    </script>
+</head>
+<body>
+<div id="fb-root"></div>
+    <div id="home">
+        <header class="header back-texture">
+            <hr class="border top-border standard-texture"/>
+            <div class="header-content">
+                <span class="active-menu"></span>
+                <div class="menu-item">
+                    <div class="menu-block title-block">
+                        <a href="/" class="title standard-texture">ExpressMapper</a>
+                    </div>
+                </div>
+                <div class="menus">
+                    <div class="menu-item standard-texture">
+                        <div class="menu-block">
+                            <div><a href="#intro">Intro</a></div>
+                        </div>
+                    </div>
+                    <div class="menu-item standard-texture">
+                        <div class="menu-block">
+                            <div><a href="#tutorial">Tutorial</a></div>
+                        </div>
+                    </div>
+                    <div class="menu-item standard-texture">
+                        <div class="menu-block">
+                            <div><a href="#benchmarks">Benchmarks</a></div>
+                        </div>
+                    </div>
+                    <div class="menu-item standard-texture">
+                        <div class="menu-block">
+                            <div><a href="#plans">What's new?</a></div>
+                        </div>
+                    </div>
+                    <div class="menu-item standard-texture">
+                        <div class="menu-block">
+                            <div><a target="_blank" href="https://github.com/Expressmapper/ExpressMapper">Github</a></div>
+                        </div>
+                    </div>
+                    <div class="menu-item standard-texture">
+                        <div class="menu-block">
+                            <div><a target="_blank" href="https://www.nuget.org/packages/Expressmapper">Nuget</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="border bottom-border standard-texture"/>
+        </header>
+        <div class="body">
+            <img src="fb320.png" class="logo" alt="logo" />
+            <article itemscope itemtype="http://schema.org/TechArticle" itemprop="articleBody">
+                <h1 itemprop="headline"><a name="intro">Intro</a></h1>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            ExpressMapper it is lightweight and easy to use .Net mapper to map one type of object(s) to another. ExpressMapper relies completely on the expression trees. Just imagine when you need to map domain model (data entity) to your DTO (viewmodel or data contract) in almost all cases it is a not exciting and boring routing to do. Just take a look at the example when it is done manually.
+                        </section>
+                    </div>
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+public ProductViewModel Map(Product p)
+{
+    var pwm = new ProductViewModel();
+    pwm.Id = p.Id;
+    pwm.Name = p.Name;
+    pwm.Price = p.Price;
+    pwm.DiscountedPrice = product.DiscountedPrice;
+    pwm.Color = product.Color;
+    pwm.Weight = product.Weight;
+    pwm.Brand = product.Brand;
+    return pwm;
+}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// It should be done only once - good practice
+// when host app starts e.g. ASP.NET on Application_Start.
+public void MappingRegistration()
+{
+    Mapper.Register&lt;Product,ProductViewModel&gt;();
+}
+
+public ProductViewModel GetProduct(Product p)
+{
+    return p.MapTo&lt;Product,ProductViewModel&gt;();
+}
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Here you can see when Expressmapper becomes very handy. Once the mappings are registered you can map objects in your code wherever you want either as many times as you want.
+                        </section>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Why Expressmapper?
+                            <ul>
+                                <li>It’s lightweight meanwhile it possesses almost all bunch of features</li>
+                                <li>It’s lightning fast, take a look at the <a class="text-link" href="#benchmarks">benchmarks</a></li>
+                                <li>Open source</li>
+                                <li>Almost 100% of test coverage</li>
+                                <li>Easy to use</li>
+                            </ul>
+                        </section>
+                    </div>
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// It should be done only once - good practice
+// when host app starts e.g. ASP.NET on Application_Start.
+public void MappingRegistration()
+{
+    Mapper.Register&lt;Product,ProductViewModel&gt;();
+}
+
+IQueryable&lt;Product&gt; _products;
+Product _product;
+// Some good examples
+public void Examples()
+{
+    // collection mapping
+    var pwms = _products.MapTo&lt;IQueryable&lt;Product&gt;,
+            IList&lt;ProductViewModel&gt;&gt;();
+    // or just object mapping
+    _product.MapTo&lt;Product,ProductViewModel&gt;();
+}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+            </article>
+            <article itemscope itemtype="http://schema.org/TechArticle" itemprop="articleBody">
+                <h1 itemprop="headline"><a name="tutorial">Tutorial</a></h1>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Mapping domain model that matches completely DTO. It means that property names and their types are the same.
+                        </section>
+                    </div>
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// Registering mapping
+public void RegisterMapping()
+{
+    // Signature is the same for both type of objects
+    Mapper.Register&lt;Product,ProductViewModel&gt;();
+}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// Registering mapping
+public void RegisterMapping()
+{
+    // Signature that have different
+    // property names but the same meaning
+    // Product.Gender is an integer
+    // whereas ProductViewModel.Gender is enum
+    Mapper.Register&lt;Product,ProductViewModel&gt;()
+        .Member(dest =&gt; dest.ProductName,
+                    src =&gt; src.Name)
+        .Member(dest =&gt; dest.Gender,
+                    src =&gt; (GenderTypes)src.Gender);
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Mapping domain model which is slightly different from DTO is accomplished by “Property” mapping.
+                        </section>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Mapping domain model’s property that matches DTO by some complex rule or algorithm is accomplished by “Function” mapping.
+                        </section>
+                    </div>
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+public void RegisterMapping()
+{
+    Mapper.Register&lt;Product,ProductViewModel&gt;()
+        .Function(dest =&gt; dest.Gender,
+            src =&gt;
+                {
+                    if (src.Brand == "Beautiful Bottoms")
+                    {
+                        return GenderTypes.Women;
+                    }
+                    switch(src.GenderCode)
+                    {
+                        case 1:
+                        return GenderTypes.Women;
+                        case 2:
+                        return GenderTypes.Men;
+                        default:
+                        return GenderTypes.Unisex;
+                    }
+                });
+}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// Registering mapping
+public void RegisterMapping()
+{
+    // Ignore default property mapping use "Ignore"
+    Mapper.Register&lt;Product,ProductViewModel&gt;()
+                 .Ignore(dest =&gt; dest.Discount);
+}
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            To ignore destination default property mapping is accomplished by “Ignore”.
+                        </section>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            To implement minimum custom mapping like enumeration to string according business rules, etc.. use custom mapping function in order reuse it throughout different mappings' registrations.
+                        </section>
+                    </div>
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+public void RegisterMapping()
+{
+    Mapper.RegisterCustom&lt;ImageSizeTypes, string&gt;(src =>
+    {
+        switch (src)
+        {
+            case ImageSizeTypes.ProductSmall:
+            return "Small";
+            case ImageSizeTypes.ProductMedium:
+            return "Medium";
+        }
+}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+public void RegisterMapping()
+{
+    Mapper
+    .RegisterCustom&lt;Unit,UnitViewModel,CustomMapper&gt;();
+}
+public class CustomMapper:
+            ICustomTypeMapper&lt;Unit,UnitViewModel&gt;
+{
+    public UnitViewModel Map
+        (IMappingContext&lt;Unit,UnitViewModel&gt; context)
+    {
+        return new UnitViewModel{Id = context.Source.Id};
+    }
+}
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            To implement custom complex mapping according business rules use custom mapping.
+                        </section>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Mapping collection types like: IEnumerable<>, ICollection<>, IList<>, IQueryable<>, typed arrays  - no additional steps are involved. Warning: IQueryable<> is implicitly cast to IEnumerable<> - if you need LINQ provide IQueryable support use .Project&lt;Source, destination&gt;();.
+                        </section>
+                    </div>
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+public void RegisterMapping()
+{
+    Mapper.Register&lt;Product, ProductViewModel&gt;();
+    Mapper.Register&lt;Category, Category&gt;()
+        .Member(dest =&gt; dest.Products,
+                    src = &gt; src.BrandProducts);
+}
+// it works just as collection to collection mapping
+products.Map&lt;List&lt;Product&gt;,ProductViewModel[]&gt;();
+// it works with nested collection's properties too
+categories.Map&lt;Category[],List&lt;CategoryViewModel&gt;&gt;();
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// Register mappings
+public void RegisterMapping()
+{
+    // Register mapping DTO
+    // that has constructor with parameters
+    Mapper.Register&lt;Product,ProductViewModel&gt;()
+        .Instantiate(src => new ProductViewModel(src.Id));
+}
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Having not default public constructor or some other logic to instantiate destination DTO - use “Instantiate”.
+                        </section>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Need to do pre-mapping initialization or calculations - use “Before” function.
+                        </section>
+                    </div>
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// Register mappings
+public void RegisterMapping()
+{
+    // any initialization logic
+    // that needs to take place before mapping
+    Mapper.Register&lt;Product,ProductViewModel&gt;()
+        .Before((src,dest)=&gt;
+                src.Discount = src.Price - src.DiscountedPrice);
+}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// Register mappings
+public void RegisterMapping()
+{
+    // any business logic or custom mapping
+    // that needs to take place after actual mapping
+    Mapper.Register&lt;Product,ProductViewModel&gt;()
+        .After((src,dest)=&gt;
+            dest.Discount = src.Price - src.DiscountedPrice);
+}
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Need to do post-mappings or calculations - use “After” function.
+                        </section>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Need to reset compiled mapping code’s cache? Use “Reset” function.
+                        </section>
+                    </div>
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// In order to reset compiled mapping cache
+// use "Reset" method
+Mapper.Reset();
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// Register mappings
+public void RegisterMapping()
+{
+    // Any registrations
+    Mapper.Register&lt;Product,ProductViewModel&gt;();
+    // In order to precompile all registered mappings
+    // no compilation during first time mapping
+    Mapper.Compile();
+}
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            If there is a need (<span class="bold">strongly recommended</span>) to precompile all mappings - use “Compile”.
+                        </section>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            There is no difference in performance iterating throughout a collection and use “MapTo” method for each item or just mapping collection.
+                        </section>
+                    </div>
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// Register mappings
+public void RegisterMapping()
+{
+    Mapper.Register&lt;Product,ProductViewModel&gt;();
+}
+
+public void SomeMethod(Product[] products)
+{
+    // here is one mapping
+    products.MapTo&lt;Product[],List&lt;ProductViewModel&gt;&gt;();
+    // here is another way to make the same mapping
+    // no performance implication
+    var result = new List&lt;ProductViewModel&gt;();
+    foreach(var p in products)
+    { result.Add(p.MapTo&lt;Product,ProductViewModel&gt;); };
+}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// Register mappings
+public void RegisterMapping()
+{
+    Mapper.Register&lt;Product,ProductViewModel&gt;();
+}
+
+public void MappingMethod(List&lt;Product&gt; products
+                        , ProductViewModel[] productVms)
+{
+    // here is one mapping
+    Mapper.Map&lt;List&lt;Product&gt;
+        ,ProductViewModel[]&gt;(products, productsVms);
+}
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Need to map source to an existing destination without creating new instance(s) of destination. Use .Map&lt;TSrc,TDest&gt;(TSrc source, TDest dest).
+                        </section>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Mapping with destination ".Map&lt;TSrc,TDest&gt;(TSrc source, TDest dest)" applies to nested members either a class or a collection types.
+                        </section>
+                    </div>
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+public class Product
+{
+    // Member declarations here
+    public ICollection&lt;ProductVariant&gt; Variants{get;set;}
+}
+
+public class ProductViewModel
+{
+    // Member declarations here
+    public ICollection&lt;ProductVariantViewModel&gt;
+                                        Variants{get;set;}
+}
+
+// Register mappings
+public void RegisterMapping()
+{
+    Mapper.Register&lt;Product,ProductViewModel&gt;();
+    Mapper.Register&lt;ProductVariant
+                        ,ProductVariantViewModel&gt;();
+}
+
+public void MappingMethod(List&lt;Product&gt; products,
+                            ProductViewModel[] productVms)
+{
+    // here is one mapping
+    Mapper.Map&lt;List&lt;Product&gt;,
+    ProductViewModel[]&gt;(products, productsVms);
+}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// Register mappings
+public void RegisterMapping()
+{
+    Mapper.Register&lt;Product,ProductViewModel&gt;();
+}
+
+public void MappingMethod(object products, object productVms)
+{
+    // here is mapping without existing destination
+    Mapper.Map(products, typeof(List&lt;Product&gt;)
+                            ,typeof(ProductViewModel[]));
+    // here is mapping with existing destination
+    Mapper.Map(products, productsVms,
+                            typeof(List&lt;Product&gt;),
+                                typeof(ProductViewModel[]));
+}
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Don't have generic types but objects - you can map just object types with specifying the types. There is non-generics support for existing destination mappings presented too.
+                        </section>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Need to map just a constant or value? - Use .Value member configuration.
+                        </section>
+                    </div>
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// Register mappings
+public void RegisterMapping()
+{
+    Mapper.Register&lt;Size, SizeViewModel&gt;()
+            .Value(src =&gt; src.SortOrder, 123)
+            .Value(src =&gt; src.BoolValue, true);
+}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+public void RegisterMapping()
+{
+    Mapper
+        .RegisterCustom&lt;Unit,UnitViewModel
+                        ,CustomMapper&gt;();
+}
+
+public class CustomMapper:
+        ICustomTypeMapper&lt;Unit,UnitViewModel&gt;
+{
+    public UnitViewModel
+        Map(IMappingContext&lt;Unit,UnitViewModel&gt; ctx)
+    {
+        if (ctx.Destination == default(UnitViewModel))
+        {
+            ctx.Destination = new UnitViewModel();
+        }
+        ctx.Destination.Id = ctx.Source.Id;
+        return ctx.Destination;
+    }
+}
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Implementation of custom complex mapping with destination.
+                        </section>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            If there is a custom mapping defined it will be used as the first priority either as a primary mapping or nested one if source and destination match custom mapping types.
+                        </section>
+                    </div>
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+public class Product
+{
+    // Member declarations here
+    public List&lt;Unit&gt; Units{get;set;}
+}
+
+public class ProductViewModel
+{
+    // Member declarations here
+    public UnitViewModel[] Units{get;set;}
+}
+
+public void RegisterMapping()
+{
+    Mapper
+        .RegisterCustom&lt;List&lt;Unit&gt;,UnitViewModel[]
+                                        ,CustomMapper&gt;();
+    Mapper.Register&lt;Product, ProductViewModel&gt;();
+}
+
+public class CustomMapper:
+                ICustomTypeMapper&lt;List&lt;Unit&gt;
+                                    ,UnitViewModel[]&gt;
+    // implementation goes below.....
+    public ProductViewModel MappingMethod(Product product)
+    {
+    // list&lt;Unit&gt; to UnitViewModel[]
+    // custom mapping will be used
+    return
+        Mapper.Map&lt;Product,ProductViewModel&gt;(product);
+    }
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+public void RegisterMapping()
+{
+    Mapper.Register&lt;Product,ProductViewModel&gt;();
+}
+
+public class Product
+{
+    // Members defined below.
+    public decimal Weight{get;set;}
+    public int? Height{get;set;}
+}
+public class ProductViewModel
+{
+    // Members defined below.
+    public decimal? Weight{get;set;}
+    public int Height{get;set;}
+}
+public ProductViewModel Mapping(Product product)
+{
+    var productVm = Mapper.Map&lt;Product&gt;(product);
+    return productVm;
+}
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Don't worry about mappings like int -> int? or vice versa - Expressmapper handles all conversions automatically.
+                        </section>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Don't worry about null checks for nested object type properties - they are handled automatically for you.
+                        </section>
+                    </div>
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// Mapping registration
+public void RegisterMapping()
+{
+    // Null check will be automatically handled in case of
+    // "src.DefaultVariant.Size.Code.Name"
+    Mapper.Register&lt;Product,ProductViewModel&gt;()
+            .Member(dest =&gt; dest.Name,
+                    src =&gt; string.Format({0}-{1},
+                    src.Name,
+                    src.DefaultVariant.Size.Code.Name));
+}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+            </article>
+            <article class="chart-article" itemscope itemtype="http://schema.org/TechArticle" itemprop="articleBody">
+                <h1 itemprop="headline"><a name="benchmarks">Benchmarks</a></h1>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <section name="XS" class="chart-text active" itemprop="text">
+                            <h2>Extra Small size test (XS)</h2>
+                            This test is all about 2 objects with primitive type properties and actually it is not about objects at all. This test all about "Struct" types. Why is it so extra small and simple? - because we are using structs and the same signature for source and destination. Please take a look at the diagram bellow:
+                            <div class="diagram"><img src="images/SimpleStructUml.png" alt="Simple struct diagram that is used in test." itemprop="image" /></div>
+                            Here you will find mapping registration for different mappers:
+                            <h3>Expressmapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+Mapper.Register&lt;Item, ItemViewModel&gt;();
+                                </code>
+                            </pre>
+                            <h3>Automapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+Mapper.CreateMap&lt;Item, ItemViewModel&gt;();
+                                </code>
+                            </pre>
+                            <h3>Mapster:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+// Enum Mapping is not supported
+                                </code>
+                            </pre>
+                            <h3>OoMapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+// Enum Mapping is not supported
+                                </code>
+                            </pre>
+                            <h3>TinyMapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+// Enum Mapping is not supported
+                                </code>
+                            </pre>
+                            <h3>ValueInjecter:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+// No code is required for setup mapping...
+                                </code>
+                            </pre>
+                        </section>
+                        <section name="S" class="chart-text" itemprop="text">
+                            <h2>Small size test (S)</h2>
+                            This test is all about 2 objects only with primitive type properties. Why is it so small and simple? - because we are using the same signature for the source and the destination. Please take a look at the diagram bellow:
+                            <div class="diagram"><img src="images/SimpleClassUml.png" alt="Simple class diagram" itemprop="image" /></div>
+                            Here you will find mapping registration for different mappers:
+                            <h3>Expressmapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+Mapper.Register&lt;News, NewsViewModel&gt;();
+                                </code>
+                            </pre>
+                            <h3>Automapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+Mapper.CreateMap&lt;News, NewsViewModel&gt;();
+                                </code>
+                            </pre>
+                            <h3>Mapster:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+// No code is required for setup mapping...
+                                </code>
+                            </pre>
+                            <h3>OoMapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+Mapper.CreateMap&lt;Item, ItemViewModel&gt;();
+                                </code>
+                            </pre>
+                            <h3>TinyMapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+TinyMapper.Bind&lt;Item, ItemViewModel&gt;();
+                                </code>
+                            </pre>
+                            <h3>ValueInjecter:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+// No code is required for setup mapping...
+                                </code>
+                            </pre>
+                        </section>
+                        <section name="M" class="chart-text" itemprop="text">
+                            <h2>Medium size test (S)</h2>
+                            This test is all about 2 objects with ref type property. Please take a look at the diagram bellow:
+                            <div class="diagram"><img src="images/AssociationUml.png" alt="Class with ref type property diagram" itemprop="image" /></div>
+                            Here you will find mapping registration for different mappers:
+                            <h3>Expressmapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+Mapper.Register&lt;Role, RoleViewModel&gt;();
+Mapper.Register&lt;User, UserViewModel&gt;()
+    .Member(dest =&gt; dest.BelongTo,
+            src =&gt; src.Role);
+                                </code>
+                            </pre>
+                            <h3>Automapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+Mapper.CreateMap&lt;Role, RoleViewModel&gt;();
+Mapper.CreateMap&lt;User, UserViewModel&gt;()
+    .ForMember(dest =&gt; dest.BelongTo,
+        src =&gt; src.MapFrom(m =&gt; m.Role));
+                                </code>
+                            </pre>
+                            <h3>Mapster:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+TypeAdapterConfig&lt;User, UserViewModel&gt;
+.NewConfig()
+.Map(dest => dest.BelongTo,
+    src =&gt; TypeAdapter
+        .Adapt&lt;Role,
+            RoleViewModel&lt(src.Role));
+                                </code>
+                            </pre>
+                            <h3>OoMapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+Mapper.CreateMap&lt;Role, RoleViewModel&gt;();
+Mapper.CreateMap&lt;User, UserViewModel&gt;()
+.ForMember(dest =&gt; dest.BelongTo,
+        src =&gt; src.MapFrom(m =&gt; m.Role));
+                                </code>
+                            </pre>
+                            <h3>TinyMapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+// Mapping is not supported...
+                                </code>
+                            </pre>
+                            <h3>ValueInjecter:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+Mapper.AddMap&ltUser, UserViewModel&gt;
+                        (src =&gt;
+{
+    var userViewModel = new UserViewModel();
+    userViewModel.InjectFrom(src);
+    userViewModel.BelongTo =
+        Mapper.Map&lt;Role,
+                RoleViewModel&gt;(src.Role);
+    return userViewModel;
+});
+                                </code>
+                            </pre>
+                        </section>
+                        <section name="L" class="chart-text" itemprop="text">
+                            <h2>Large size test (L)</h2>
+                            This test is all about 2 objects with collection type property. Please take a look at the diagram bellow:
+                            <div class="diagram"><img src="images/NestedCollectionUml.png" alt="Class with ref collection property type diagram" itemprop="image" /></div>
+                            Here you will find mapping registration for different mappers:
+                            <h3>Expressmapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+Mapper.Register&lt;Article, ArticleViewModel&gt;();
+Mapper.Register&lt;Author, AuthorViewModel&gt;()
+    .Function(dest =&gt; dest.OwnedArticles,
+                    src =&gt; src.Articles);
+                                </code>
+                            </pre>
+                            <h3>Automapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+Mapper.CreateMap&lt;Article, ArticleViewModel&gt;();
+Mapper.CreateMap&lt;Author, AuthorViewModel&gt;()
+    .ForMember(dest =&gt; dest.OwnedArticles,
+        src =&gt; src.ResolveUsing(m =&gt; m.Articles));
+                                </code>
+                            </pre>
+                            <h3>Mapster:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+TypeAdapterConfig&lt;Author, AuthorViewModel&gt;
+.NewConfig()
+.Map(dest =&gt; dest.OwnedArticles,
+    src =&gt;
+        TypeAdapter
+            .Adapt&lt;IEnumerable&lt;Article&gt;
+                        , ArticleViewModel[]&gt;
+                                (src.Articles));
+                                </code>
+                            </pre>
+                            <h3>OoMapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+Mapper.CreateMap&lt;Article, ArticleViewModel&gt;();
+Mapper.CreateMap&lt;Author, AuthorViewModel&gt;()
+    .ForMember(dest =&gt;
+        dest.OwnedArticles,
+            src =&gt;
+                src.MapFrom(m =&gt; m.Articles));
+                                </code>
+                            </pre>
+                            <h3>TinyMapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+// Mapping is not supported
+                                </code>
+                            </pre>
+                            <h3>ValueInjecter:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+Mapper.AddMap&lt;Author, AuthorViewModel&gt;
+        (src =&gt;
+{
+    var articles =
+        new ArticleViewModel[src.Articles.Count()];
+    var authorViewModel = new AuthorViewModel();
+    authorViewModel.InjectFrom(src);
+
+    for (var i = 0; i < articles.Length; i++)
+    {
+    articles[i] = Mapper.Map&lt;Article,
+                    ArticleViewModel&gt;
+                    (src.Articles.ElementAt(i));
+    }
+    authorViewModel.OwnedArticles = articles;
+    return authorViewModel;
+});
+                                </code>
+                            </pre>
+                        </section>
+                        <section name="XL" class="chart-text" itemprop="text">
+                            <h2>XL size test (XL)</h2>
+                            This test is all about 2 objects with a collection type property as well as nested collections and multiple reference type properties. Please take a look at the diagram bellow:
+                            <div class="diagram"><img src="images/ComplexUml.png" alt="Complex diagram" itemprop="image" /></div>
+                            Here you will find mapping registration for different mappers:
+                            <h3>Expressmapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+Mapper.Register&lt;ProductVariant,
+                ProductVariantViewModel&gt;();
+Mapper.Register&lt;Product,
+                ProductViewModel&gt;()
+    .Member(dest =&gt; dest.DefaultSharedOption,
+                src =&gt; src.DefaultOption);
+Mapper.Register&lt;Test, TestViewModel&gt;()
+.Member(dest =&gt; dest.Age, src =&gt; src.Age)
+.Member(dest =&gt; dest.Weight,
+                        src =&gt; src.Weight * 2)
+.Member(dest =&gt; dest.Type,
+                src =&gt; (Types)src.Type)
+.Member(dest =&gt; dest.Name,
+    src =&gt;
+        string.Format("{0} - {1} - {2}",
+            src.Name, src.Weight, src.Age))
+.Member(dest =&gt; dest.Description,
+    src =&gt;
+        string.Format("{0} - {1}",
+                    src.Name, src.Id))
+.Member(dest =&gt; dest.SpareTheProduct,
+            src =&gt; src.SpareProduct);
+                                </code>
+                            </pre>
+                            <h3>Automapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+Mapper.CreateMap&lt;ProductVariant,
+                    ProductVariantViewModel&gt;();
+Mapper.CreateMap&lt;Product,
+                    ProductViewModel>()
+    .ForMember(dest =&gt; dest.DefaultSharedOption,
+        src =&gt;
+            src.MapFrom(m =&gt; m.DefaultOption));
+Mapper.CreateMap&lt;Test, TestViewModel>()
+.ForMember(dest =&gt; dest.Age,
+            src =&gt; src.MapFrom(src =&gt; src.Age))
+.ForMember(dest =&gt; dest.Weight,
+            src =&gt;
+                src.MapFrom(src =&gt; src.Weight * 2))
+.ForMember(dest =&gt; dest.Type,
+    src =&gt;
+        src.MapFrom(m =&gt; (Types)m.Type))
+.ForMember(dest =&gt; dest.Name,
+        src =&gt; src.MapFrom(m =&gt;
+                string.Format("{0} - {1} - {2}",
+                    m.Name, m.Weight, m.Age)))
+.ForMember(dest =&gt; dest.Description,
+        src =&gt; src.MapFrom(m =&gt;
+                string.Format("{0} - {1}",
+                        src.Name, src.Id)))
+.ForMember(dest =&gt; dest.SpareTheProduct,
+    src =&gt;
+        src.MapFrom(m =&gt; m.SpareProduct));
+                                </code>
+                            </pre>
+                            <h3>Mapster:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+TypeAdapterConfig&lt;Product, ProductViewModel&gt;
+.NewConfig()
+.Map(dest =&gt; dest.DefaultSharedOption,
+    src =&gt;
+        TypeAdapter.Adapt&lt;ProductVariant,
+                    ProductVariantViewModel&gt;
+                        (src.DefaultOption));
+
+TypeAdapterConfig&lt;Test, TestViewModel&gt;
+.NewConfig()
+    .Map(dest =&gt; dest.Age, src =&gt; src.Age)
+    .Map(dest =&gt; dest.Weight,
+        src =&gt; src.Weight * 2)
+    .Map(dest =&gt; dest.Type,
+        src =&gt; (Types)src.Type)
+    .Map(dest =&gt; dest.Name,
+        src =&gt; string.Format("{0} - {1} - {2}",
+                    src.Name, src.Weight, src.Age))
+    .Map(dest =&gt; dest.Name,
+        src =&gt; string.Format("{0} - {1} - {2}",
+                    src.Name, src.Weight, src.Age))
+    .Map(dest =&gt; dest.SpareTheProduct,
+        src =&gt;
+            TypeAdapter.Adapt&lt;Product,
+                        ProductViewModel&gt;
+                        (src.SpareProduct))
+    .Map(dest =&gt; dest.Description,
+        src => string.Format("{0} - {1}",
+                        src.Name, src.Id));
+                                </code>
+                            </pre>
+                            <h3>OoMapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+Mapper.CreateMap&lt;ProductVariant,
+                ProductVariantViewModel&gt;();
+Mapper.CreateMap&lt;Product,
+                ProductViewModel>()
+.ForMember(dest =&gt; dest.DefaultSharedOption,
+    src =&gt;
+        src.MapFrom(m =&gt; m.DefaultOption));
+Mapper.CreateMap&lt;Test, TestViewModel>()
+.ForMember(dest =&gt; dest.Age,
+    src =&gt; src.MapFrom(src =&gt; src.Age))
+.ForMember(dest =&gt; dest.Weight,
+    src =&gt;
+        src.MapFrom(src =&gt; src.Weight * 2))
+.ForMember(dest =&gt; dest.Type,
+    src =&gt;
+        src.MapFrom(m =&gt; (Types)m.Type))
+.ForMember(dest =&gt; dest.Name,
+    src =&gt; src.MapFrom(m =&gt;
+        string.Format("{0} - {1} - {2}",
+            m.Name, m.Weight, m.Age)))
+.ForMember(dest =&gt; dest.Description,
+    src =&gt; src.MapFrom(m =&gt;
+        string.Format("{0} - {1}",
+            src.Name, src.Id)))
+.ForMember(dest =&gt; dest.SpareTheProduct,
+    src =&gt;
+        src.MapFrom(m =&gt; m.SpareProduct))
+.ForMember(dest =&gt; dest.Products,
+    opt =&gt;
+        opt.MapFrom(src =&gt; src.Products));
+                                </code>
+                            </pre>
+                            <h3>TinyMapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+// Mapping is not supported
+                                </code>
+                            </pre>
+                            <h3>ValueInjecter:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+Mapper.AddMap&lt;Product,
+    ProductViewModel&gt;(src =&gt;
+{
+    var productViewModel = new ProductViewModel();
+    productViewModel.InjectFrom(src);
+    productViewModel.DefaultSharedOption =
+    Mapper.Map&lt;ProductVariant,
+        ProductVariantViewModel&gt;(src.DefaultOption);
+    productViewModel.Options =
+            new List&lt;ProductVariantViewModel&gt;();
+    foreach (var pv in src.Options)
+    {
+        productViewModel.Options.Add(
+            Mapper.Map&lt;ProductVariant,
+                        ProductVariantViewModel&gt;(pv));
+    }
+    return productViewModel;
+});
+
+Mapper.AddMap&lt;Test, TestViewModel&gt;(src =&gt;
+{
+    var testViewModel = new TestViewModel(
+                    string.Format("{0} - {1}",
+                            src.Name, src.Id));
+    testViewModel.InjectFrom(src);
+    testViewModel.Name = string.Format("{0} - {1} - {2}",
+                        src.Name, src.Weight, src.Age);
+
+    testViewModel.Product =
+            Mapper.Map&lt;Product,
+                    ProductViewModel&gt;(src.Product);
+    testViewModel.SpareTheProduct =
+            Mapper.Map&lt;Product,
+                    ProductViewModel&gt;(src.SpareProduct);
+    testViewModel.Type = (Types) src.Type;
+    testViewModel.Weight = src.Weight*2;
+    testViewModel.Products =
+            new List&lt;ProductViewModel&gt;();
+    foreach (var product in src.Products)
+    {
+        testViewModel.Products.Add(
+            Mapper.Map&lt;Product,
+                ProductViewModel&gt;(product));
+    }
+    return testViewModel;
+});
+                                </code>
+                            </pre>
+                        </section>
+                        <section name="XXL" class="chart-text" itemprop="text">
+                            <h2>XXL size test (XXL)</h2>
+                            This test is all about 2 objects with a collection type property as well as nested collections and multiple reference type properties. Also there are a lot of techniques are used like "Instantiate", "AfterMap", "BeforeMap", etc.. Please take a look at the diagram bellow:
+                            <div class="diagram"><img src="images/ComplexUml.png" alt="Complex diagram" itemprop="image" /></div>
+                            Here you will find mapping registration for different mappers:
+                            <h3>Expressmapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+Mapper.Register&lt;ProductVariant,
+                ProductVariantViewModel&gt;();
+Mapper.Register&lt;Product,
+                ProductViewModel&gt;()
+    .Member(dest =&gt; dest.DefaultSharedOption,
+            src =&gt; src.DefaultOption);
+Mapper.Register&lt;Test, TestViewModel&gt;()
+.Before((src, dest) =&gt; dest.Age = src.Age)
+.After((src, dest) =&gt; dest.Weight = src.Weight * 2)
+.Ignore(dest =&gt; dest.Age)
+.Member(dest =&gt; dest.Type, src =&gt; (Types)src.Type)
+.Member(dest =&gt; dest.Name,
+    src =&gt;
+    string.Format("{0} - {1} - {2}",
+                src.Name, src.Weight, src.Age))
+.Function(dest =&gt; dest.SpareTheProduct,
+                        src =&gt; src.SpareProduct)
+.Instantiate(src =&gt;
+    new TestViewModel(
+        string.Format("{0} - {1}",
+                        src.Name, src.Id)));
+                                </code>
+                            </pre>
+                            <h3>Automapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+Mapper.CreateMap&lt;ProductVariant,
+            ProductVariantViewModel&gt;();
+Mapper.CreateMap&lt;Product,
+            ProductViewModel>()
+.ForMember(dest =&gt; dest.DefaultSharedOption,
+            src =&gt; src.MapFrom(m =&gt; m.DefaultOption));
+Mapper.CreateMap&lt;Test, TestViewModel>()
+.BeforeMap((src, dest) =&gt; dest.Age = src.Age)
+.AfterMap((src, dest) =&gt; dest.Weight = src.Weight * 2)
+.ForMember(dest =&gt; dest.Age, src =&gt; src.Ignore())
+.ForMember(dest =&gt; dest.Type, src =&gt;
+    src.MapFrom(m =&gt; (Types)m.Type))
+.ForMember(dest =&gt; dest.Name,
+    src =&gt; src.MapFrom(m =&gt;
+        string.Format("{0} - {1} - {2}",
+                m.Name, m.Weight, m.Age)))
+.ForMember(dest =&gt; dest.SpareTheProduct,
+    src =&gt; src.ResolveUsing(m =&gt; m.SpareProduct))
+.ConstructUsing((src =&gt;
+    new TestViewModel(string.Format("{0} - {1}",
+                        src.Name, src.Id))));
+                                </code>
+                            </pre>
+                            <h3>Mapster:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+TypeAdapterConfig&lt;Product, ProductViewModel&gt;
+.NewConfig()
+.Map(dest =&gt; dest.DefaultSharedOption,
+        src =&gt;
+            TypeAdapter.Adapt&lt;ProductVariant,
+                ProductVariantViewModel&gt;
+                        (src.DefaultOption));
+
+TypeAdapterConfig&lt;Test, TestViewModel&gt;
+.NewConfig()
+.Map(dest =&gt; dest.Age, src =&gt; src.Age)
+.Map(dest =&gt; dest.Weight,
+                src =&gt; src.Weight * 2)
+.Map(dest =&gt; dest.Type,
+                src =&gt; (Types)src.Type)
+.Map(dest =&gt; dest.Name,
+src =&gt; string.Format("{0} - {1} - {2}",
+    src.Name, src.Weight, src.Age))
+.Map(dest =&gt; dest.Name,
+    src =&gt; string.Format("{0} - {1} - {2}",
+            src.Name, src.Weight, src.Age))
+.Map(dest =&gt; dest.SpareTheProduct,
+    src =&gt;
+    TypeAdapter.Adapt&lt;Product,
+            ProductViewModel&gt;
+                (src.SpareProduct))
+.Map(dest =&gt; dest.Description,
+    src => string.Format("{0} - {1}",
+                    src.Name, src.Id));
+                                </code>
+                            </pre>
+                            <h3>OoMapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+// BeforeMap, AfterMap,
+// Custom constructor are not supported
+                                </code>
+                            </pre>
+                            <h3>TinyMapper:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+// Mapping is not supported
+                                </code>
+                            </pre>
+                            <h3>ValueInjecter:</h3>
+                            <pre class="language-csharp">
+                                <code class="language-csharp" itemprop="workExample" itemscope itemtype="code">
+Mapper.AddMap&lt;Product,
+                ProductViewModel&gt;(
+                        src =&gt;
+{
+    var productViewModel = new ProductViewModel();
+    productViewModel.InjectFrom(src);
+    productViewModel.DefaultSharedOption =
+        Mapper.Map&lt;ProductVariant,
+            ProductVariantViewModel&gt;(src.DefaultOption);
+    productViewModel.Options =
+            new List&lt;ProductVariantViewModel&gt;();
+    foreach (var pv in src.Options)
+    {
+        productViewModel.Options.Add(
+            Mapper.Map&lt;ProductVariant,
+                ProductVariantViewModel&gt;(pv));
+    }
+    return productViewModel;
+});
+
+Mapper.AddMap&lt;Test, TestViewModel&gt;(src =&gt;
+{
+    var testViewModel = new TestViewModel(
+        string.Format("{0} - {1}",
+                src.Name, src.Id));
+    testViewModel.InjectFrom(src);
+    testViewModel.Name = string.Format("{0} - {1} - {2}",
+            src.Name, src.Weight, src.Age);
+
+    testViewModel.Product =
+            Mapper.Map&lt;Product,
+                ProductViewModel&gt;(src.Product);
+    testViewModel.SpareTheProduct =
+        Mapper.Map&lt;Product,
+            ProductViewModel&gt;(src.SpareProduct);
+    testViewModel.Type = (Types) src.Type;
+    testViewModel.Weight = src.Weight*2;
+    testViewModel.Products =
+        new List&lt;ProductViewModel&gt;();
+    foreach (var product in src.Products)
+    {
+    testViewModel.Products.Add(
+        Mapper.Map&lt;Product,
+            ProductViewModel&gt;(product));
+    }
+    return testViewModel;
+});
+                                </code>
+                            </pre>
+                        </section>
+                    </div>
+                    <div class="ex-cell flow-visible">
+                        <div class="chart-item-box">
+                            <div class="bench-test-box" itemprop="workExample">
+                                <div class="button-box">
+                                    <span id="XS" class="bench-test-button active">XS</span>
+                                </div>
+                                <div class="button-box">
+                                    <span id="S" class="bench-test-button">S</span>
+                                </div>
+                                <div class="button-box">
+                                    <span id="M" class="bench-test-button">M</span>
+                                </div>
+                                <div class="button-box">
+                                    <span id="L" class="bench-test-button">L</span>
+                                </div>
+                                <div class="button-box">
+                                    <span id="XL" class="bench-test-button">XL</span>
+                                </div>
+                                <div class="button-box">
+                                    <span id="XXL" class="bench-test-button">XXL</span>
+                                </div>
+                            </div>
+                            <div class="chart">
+                                <canvas id="benchmark" width="500" height="400"></canvas>
+                            </div>
+                            <section class="graph-desc">
+                                <ul>
+                                    <li>
+                                        Axis "X" - quantity of objects being mapped
+                                    </li>
+                                    <li>
+                                        Axis "Y" - milliseconds
+                                    </li>
+                                    <li>
+                                        "-1" value - not supported
+                                    </li>
+                                </ul>
+                                All presented tests you can execute by yourself - download solution from the <a target="_blank" href="https://github.com/Expressmapper/ExpressMapper" class="text-link">GitHub</a> and run as a start project - "Benchmarks".
+                                <br/>
+                                <hr/>
+                                <span class="disagree">If you have some concerns regarding benchmarks, please either send them to <a href="mailto:support@expressmapper.org" target="_blank">support@expressmapper.org</a> or create an issue in the <a target="_blank" href="https://github.com/Expressmapper/ExpressMapper" class="text-link">GitHub</a> we'd be grateful for any input. </span>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article itemscope itemtype="http://schema.org/TechArticle" itemprop="articleBody">
+                <h1 name="plans" itemprop="headline"><a name="plans">What's new in Expressmapper 1.8?</a></h1>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// Register mappings
+public void RegisterMapping()
+{
+    // this registration at compilation phase
+    // will compile only mapping for source maps
+    // e.g. Mapper.Map
+    // &lt;Product,ProductViewModel&gt;(product)
+    Mapper.Register&lt;Product,ProductViewModel&gt;()
+            .CompileTo(CompilationTypes.Source);
+
+    // this registration at compilation phase
+    // will compile only mapping for destination maps
+    // e.g. Mapper.Map
+    // &lt;Ticket,TicketViewModel&gt;(product, productVm)
+    Mapper.Register&lt;Ticket,TicketViewModel&gt;()
+            .CompileTo(CompilationTypes.Destination);
+
+    // Global default compilation level
+    // all mappings will be compiled to Source maps
+    // except above mappings as they have major priority
+    Mapper.Compile(CompilationTypes.Source);
+}
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Compilation type management support for "Source" and "Destination" mappings. That kind of switch helps you to avoid unnecessary compilations if you don't use them. It supports globally and at more granular level - per mapping registration. Mapping registration has major priority than global one.
+                        </section>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Special support for mapping enum types. It uses integer values from enums as a mapping criteria.
+                        </section>
+                    </div>
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// Just imagine that this enum exists in 2 different namespaces
+public enum Types
+{
+    Source = 2,
+    Target = 4
+}
+
+public void MappingRegistration
+{
+    // FlightViewModel.FlightType and Flight.Type
+    // both have the same enums' signature
+    // but they are located in different namespaces
+    Mapper.Register&lt;Flight,FlightViewModel&gt;()
+            .Member(dest => dest.FlightType, src => src.Type);
+    Mapper.Compile();
+}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// Register mappings
+public void RegisterMapping()
+{
+    // all members of that registration
+    // will be mapped with case-sensitivity
+    Mapper.Register&lt;Product,ProductViewModel&gt;()
+        .CaseSensitive(true);
+
+    // by default all members' mappings
+    // will ignore case-sensitivity
+    // except registration above as
+    // local registrations have major priority
+    Mapper.MemberCaseSensitiveMap(false);
+}
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            From now on you can manage case-sensitivity at global and per mapping's registration level. Mappping registration level has major priority than global one.
+                        </section>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Real IQueryable support for LINQ providers using <span class="italic bold">".Project&lt;Source, Destination&gt;()"</span>. The following restrictions apply almost for every provider:
+                            <ul>
+                                <li>.Function()</li>
+                                <li>Using any methods inside custom ".Member" registrations</li>
+                                <li>.Before() and .After()</li>
+                                <li>.Instantiate()</li>
+                                <li>Custom mapping implementations like ICustomTypeMapper&lt;Source,Destination&gt;</li>
+                                <li>Others specific per provider...</li>
+                            </ul>
+                        </section>
+                    </div>
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// Register mappings
+public void RegisterMapping()
+{
+    Mapper.Register&lt;Product,ProductViewModel&gt;();
+}
+
+private DbContext _context;
+
+public IQueryable&lt;ProductViewModel&gt; GetProducts()
+{
+    return
+        _context.Set&lt;Product&gt;()
+            .Project&lt;Product, ProductViewModel&gt;();
+}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// No mappings registrations are needed
+public List&lt;ProductViewModel&gt;
+            MapProducts(&lt;List&lt;Product&gt; products)
+{
+    return
+        products.Map&lt;List&lt;Product&gt;,
+                    List&lt;ProductViewModel&gt;&gt;();
+}
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Dynamic mapping without registration. Expressmapper would map your "Source" to "Destination" classes like Mapper.Register&lt;Source, Destination&gt;();
+                        </section>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Deep copy mappings support. Map source and destination with the same type.
+                        </section>
+                    </div>
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// Register mappings
+public void RegisterMapping()
+{
+    Mapper.Register&lt;Product,Product&gt;();
+}
+
+public Product DeepClone(Product product)
+{
+    return product.Map&lt;Product,Product&gt;();
+}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+public class Product
+{
+    public string Name {set; get;}
+}
+
+public class ProductViewModel
+{
+    public string nAmE {set; get;}
+}
+
+// Register mappings
+public void RegisterMapping()
+{
+    Mapper.Register&lt;Product,ProductViewModel&gt;();
+}
+
+public ProductViewModel MapProduct(Product product)
+{
+    return product.Map&lt;Product,ProductViewModel&gt;();
+}
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Case insensitive support for mapping properties and fields.
+                        </section>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Field mapping support.
+                        </section>
+                    </div>
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+public class Product
+{
+    public string Name {set; get;}
+}
+
+public class ProductViewModel
+{
+    public string Name;
+}
+
+// Register mappings
+public void RegisterMapping()
+{
+    Mapper.Register&lt;Product,ProductViewModel&gt;();
+}
+
+public ProductViewModel MapProduct(Product product)
+{
+    return product.Map&lt;Product,ProductViewModel&gt;();
+}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+// Register mappings
+public void RegisterMapping()
+{
+    Mapper.Register&lt;Product,ProductViewModel&gt;();
+    Mapper.Compile();
+    Mapper.CollectionPrecompile&lt;List&lt;Product&gt;,
+                                ProductViewModel[]&gt;()
+}
+
+public List&lt;ProductViewModel&gt;
+                        MapProducts(&lt;List&lt;Product&gt; products)
+{
+    return
+        products.Map&lt;List&lt;Product&gt;,
+            ProductViewModel[]&gt;();
+}
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Since now you can precompile any collection's mappings apart from registration compilation. Registration compilation compiles only "Source" to "Destination" mapping but not "List&lt;Source&gt;" to "IEnumerable&lt;Destination&gt;" that is specified in you client code and Expressmapper has no idea about it upon registration time. But when it tries to map it in the client code first time, it compiles collection mapping and caches it. With such precompilation improvement you can avoid first compilation in you client code.
+                        </section>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+                <div class="ex-row" itemprop="articleSection">
+                    <div class="ex-cell">
+                        <section itemprop="text">
+                            Implicit IConvertible conversion mapping support.
+                        </section>
+                    </div>
+                    <div class="ex-cell">
+                        <pre class="language-csharp">
+                            <code class="language-csharp" itemscope itemtype="code">
+public class Product
+{
+    public int Weight {set; get;}
+}
+
+public class ProductViewModel
+{
+    public long Weight {set; get;}
+}
+
+// Register mappings
+public void RegisterMapping()
+{
+    Mapper.Register&lt;Product,ProductViewModel&gt;();
+}
+
+public ProductViewModel MapProduct(Product product)
+{
+    return product.Map&lt;Product,ProductViewModel&gt;();
+}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                <div class="spacing-row"></div>
+            </article>
+        </div>
+        <footer>
+            <div class="table">
+                <div class="profile-row">
+                    <div class="profile-cell cell">
+                        <img class="author-image" src="http://www.gravatar.com/avatar/6be91a75947d538496818163b7e88b3c.png?s=150" alt="author picture" />
+                    </div>
+                    <div class="description-cell cell">
+                        <div>About author</div>
+                        <div>Passionate back-end, front-end as well as mobile developer on various platforms like .Net, Xamarin, Nodejs and many other frameworks and technologies.</div>
+                        <div propitem="author">George Anisimov</div>
+                    </div>
+                    <div class="cell">
+                        <div class="like-title">Do you like Expressmapper?</div>
+                        <form class="donation" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                            <input type="hidden" name="cmd" value="_s-xclick">
+                            <input type="hidden" name="hosted_button_id" value="WSV6KEHGDXYXG">
+                            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                        </form>
+                        <div class="fb-block">
+                            <div class="fb-like" data-href="http://www.expressmapper.org" data-layout="button" data-action="like" data-show-faces="true" data-share="false"></div>
+                        </div>
+                        <div class="gplus-block">
+                            <div class="g-plusone" data-size="tall" data-annotation="none" data-href="http://www.expressmapper.org"></div>
+                        </div>
+                        <div class="contacts">Contacts:</div>
+                        <div class="mail"><a href="mailto:support@expressmapper.org" target="_blank">support@expressmapper.org</a></div>
+                    </div>
+                </div>
+                <div class="profile-row">
+                    <div class="cell"></div>
+                    <div class="cell copyright">Copyright © 2015 Expressmapper</div>
+                    <div class="cell"></div>
+                </div>
+            </div>
+        </footer>
+    </div>
+<script type="application/javascript" src="scripts/bundles/default.min.js?v=e531de1c-8bba-4372-a782-15e589afe625"></script>
+<script type="application/javascript" data-default-language="csharp" src="scripts/bundles/prism.min.js"></script>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=375111679353963";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script type="text/javascript">
+    (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/platform.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+</script>
+</body>
+</html>

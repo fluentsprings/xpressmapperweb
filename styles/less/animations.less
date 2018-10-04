@@ -1,0 +1,619 @@
+@import "colors.less";
+
+@-webkit-keyframes introToTut {
+  from {background-color: @introbackcolor;}
+  to {background-color: @tutorialbackcolor;}
+}
+
+@keyframes introToTut {
+  from {background-color: @introbackcolor;}
+  to {background-color: @tutorialbackcolor;}
+}
+
+#home.tutorial{
+  .header,footer{
+    -webkit-animation-name:introToTut;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+
+    animation-name:introToTut;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+  }
+}
+
+@-webkit-keyframes tutorialToIntro {
+  from {background-color: @tutorialbackcolor;}
+  to {background-color: @introbackcolor;}
+}
+
+@keyframes tutorialToIntro {
+  from {background-color: @tutorialbackcolor;}
+  to {background-color: @introbackcolor;}
+}
+
+#home.intro-reverse{
+  .header,footer{
+    -webkit-animation-name:tutorialToIntro;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+
+    animation-name:tutorialToIntro;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+  }
+}
+
+
+@-webkit-keyframes introToTutorialFore {
+  from {color: @introcolor;}
+  to {color: @tutorialcolor;}
+}
+
+@keyframes introToTutorialFore {
+  from {color: @introcolor;}
+  to {color: @tutorialcolor;}
+}
+
+@-webkit-keyframes introToTutorialCode {
+  from {
+    -webkit-box-shadow: -1px 0px 0px 0px @introcolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @introcolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @introcolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @introcolor;
+  }
+  to {
+    -webkit-box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @tutorialcolor;
+  }
+}
+
+@keyframes introToTutorialCode {
+  from {
+    -webkit-box-shadow: -1px 0px 0px 0px @introcolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @introcolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @introcolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @introcolor;
+  }
+  to {
+    -webkit-box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @tutorialcolor;
+  }
+}
+
+#home.tutorial{
+  .body {
+    -webkit-animation-name: introToTutorialFore;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+
+    animation-name: introToTutorialFore;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+
+    pre[class*="language-"]{
+      -webkit-animation-name: introToTutorialCode;
+      -webkit-animation-duration: 1s;
+      -webkit-animation-timing-function: linear;
+
+      animation-name: introToTutorialFore;
+      animation-duration: 1s;
+      animation-timing-function: linear;
+    }
+  }
+}
+
+@-webkit-keyframes tutorialToIntroFore {
+  from {color: @tutorialcolor;}
+  to {color: @introcolor;}
+}
+
+@keyframes tutorialToIntroFore {
+  from {color: @tutorialcolor;}
+  to {color: @introcolor;}
+}
+
+@-webkit-keyframes tutorialToIntroBorder {
+  from {border-color: @tutorialcolor;}
+  to {border-color: @introcolor;}
+}
+
+@keyframes tutorialToIntroBorder {
+  from {border-color: @tutorialcolor;}
+  to {border-color: @introcolor;}
+}
+
+@-webkit-keyframes tutorialToIntroCode {
+  from {
+    -webkit-box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @tutorialcolor;
+  }
+  to {
+    -webkit-box-shadow: -1px 0px 0px 0px @introcolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @introcolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @introcolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @introcolor;
+  }
+}
+
+@keyframes tutorialToIntroCode {
+  from {
+    -webkit-box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @tutorialcolor;
+  }
+  to {
+    -webkit-box-shadow: -1px 0px 0px 0px @introcolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @introcolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @introcolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @introcolor;
+  }
+}
+
+#home.intro-reverse{
+  .body {
+    -webkit-animation-name: tutorialToIntroFore;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+
+    animation-name: tutorialToIntroFore;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+
+    pre[class*="language-"]{
+      -webkit-animation-name: tutorialToIntroCode;
+      -webkit-animation-duration: 1s;
+      -webkit-animation-timing-function: linear;
+
+      animation-name: tutorialToIntroCode;
+      animation-duration: 1s;
+      animation-timing-function: linear;
+    }
+  }
+}
+
+
+
+
+/* Tutorial to Benchmarks and wise versa */
+
+@-webkit-keyframes tutorialToBench {
+  from {background-color: @tutorialbackcolor;}
+  to {background-color: @benchbackcolor;}
+}
+
+@keyframes tutorialToBench {
+  from {background-color: @tutorialbackcolor;}
+  to {background-color: @benchbackcolor;}
+}
+
+#home.benchmarks{
+  .header,footer{
+    -webkit-animation-name:tutorialToBench;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+
+    animation-name:tutorialToBench;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+  }
+}
+
+@-webkit-keyframes benchToTutorial {
+  from {background-color: @benchbackcolor;}
+  to {background-color: @tutorialbackcolor;}
+}
+
+@keyframes benchToTutorial {
+  from {background-color: @benchbackcolor;}
+  to {background-color: @tutorialbackcolor;}
+}
+
+#home.tutorial-reverse{
+  .header,footer{
+    -webkit-animation-name:benchToTutorial;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+
+    animation-name:benchToTutorial;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+  }
+}
+
+
+@-webkit-keyframes tutorialToBenchFore {
+  from {color: @tutorialcolor;}
+  to {color: @benchcolor;}
+}
+
+@keyframes tutorialToBenchFore {
+  from {color: @tutorialcolor;}
+  to {color: @benchcolor;}
+}
+
+@-webkit-keyframes tutorialToBenchCode {
+  from {
+    -webkit-box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @tutorialcolor;
+  }
+  to {
+    -webkit-box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @benchcolor;
+  }
+}
+
+@keyframes tutorialToBenchCode {
+  from {
+    -webkit-box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @tutorialcolor;
+  }
+  to {
+    -webkit-box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @benchcolor;
+  }
+}
+
+#home.benchmarks{
+  .body {
+    -webkit-animation-name: tutorialToBenchFore;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+
+    animation-name: tutorialToBenchFore;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+
+    pre[class*="language-"]{
+      -webkit-animation-name: tutorialToBenchCode;
+      -webkit-animation-duration: 1s;
+      -webkit-animation-timing-function: linear;
+
+      animation-name: introToTutorialCode;
+      animation-duration: 1s;
+      animation-timing-function: linear;
+    }
+  }
+}
+
+@-webkit-keyframes benchToTutorialFore {
+  from {color: @benchcolor;}
+  to {color: @tutorialcolor;}
+}
+
+@keyframes benchToTutorialFore {
+  from {color: @benchcolor;}
+  to {color: @tutorialcolor;}
+}
+
+@-webkit-keyframes benchToTutorialBorder {
+  from {border-color: @benchcolor;}
+  to {border-color: @tutorialcolor;}
+}
+
+@keyframes benchToTutorialBorder {
+  from {border-color: @benchcolor;}
+  to {border-color: @tutorialcolor;}
+}
+
+@-webkit-keyframes benchToTutorialCode {
+  from {
+    -webkit-box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @benchcolor;
+  }
+  to {
+    -webkit-box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @tutorialcolor;
+  }
+}
+
+@keyframes benchToTutorialCode {
+  from {
+    -webkit-box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @benchcolor;
+  }
+  to {
+    -webkit-box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @tutorialcolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @tutorialcolor;
+  }
+}
+
+#home.tutorial-reverse{
+  .body {
+    -webkit-animation-name: benchToTutorialFore;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+
+    animation-name: benchToTutorialFore;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+
+    pre[class*="language-"]{
+      -webkit-animation-name: benchToTutorialCode;
+      -webkit-animation-duration: 1s;
+      -webkit-animation-timing-function: linear;
+
+      animation-name: benchToTutorialCode;
+      animation-duration: 1s;
+      animation-timing-function: linear;
+    }
+  }
+}
+
+/* Benchmarks to Plans and wise versa */
+
+@-webkit-keyframes benchToPlan {
+  from {background-color: @benchbackcolor;}
+  to {background-color: @planbackcolor;}
+}
+
+@keyframes benchToPlan {
+  from {background-color: @benchbackcolor;}
+  to {background-color: @planbackcolor;}
+}
+
+#home.plans{
+  .header,footer{
+    -webkit-animation-name:benchToPlan;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+
+    animation-name:benchToPlan;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+  }
+}
+
+@-webkit-keyframes planToBench {
+  from {background-color: @planbackcolor;}
+  to {background-color: @benchbackcolor;}
+}
+
+@keyframes planToBench {
+  from {background-color: @planbackcolor;}
+  to {background-color: @benchbackcolor;}
+}
+
+#home.benchmarks-reverse{
+  .header,footer{
+    -webkit-animation-name:planToBench;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+
+    animation-name:planToBench;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+  }
+}
+
+@-webkit-keyframes benchToPlanFore {
+  from {color: @benchcolor;}
+  to {color: @plancolor;}
+}
+
+@keyframes benchToPlanFore {
+  from {color: @benchcolor;}
+  to {color: @plancolor;}
+}
+
+@-webkit-keyframes benchToPlanCode {
+  from {
+    -webkit-box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @benchcolor;
+  }
+  to {
+    -webkit-box-shadow: -1px 0px 0px 0px @plancolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @plancolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @plancolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @plancolor;
+  }
+}
+
+@keyframes benchToPlanCode {
+  from {
+    -webkit-box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @benchcolor;
+  }
+  to {
+    -webkit-box-shadow: -1px 0px 0px 0px @plancolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @plancolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @plancolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @plancolor;
+  }
+}
+
+#home.plans{
+  .body {
+    -webkit-animation-name: benchToPlanFore;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+
+    animation-name: benchToPlanFore;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+
+    pre[class*="language-"]{
+      -webkit-animation-name: benchToPlanCode;
+      -webkit-animation-duration: 1s;
+      -webkit-animation-timing-function: linear;
+
+      animation-name: benchToPlanCode;
+      animation-duration: 1s;
+      animation-timing-function: linear;
+    }
+  }
+}
+
+@-webkit-keyframes planToBenchFore {
+  from {color: @plancolor;}
+  to {color: @benchcolor;}
+}
+
+@keyframes planToBenchFore {
+  from {color: @plancolor;}
+  to {color: @benchcolor;}
+}
+
+@-webkit-keyframes planToBenchBorder {
+  from {border-color: @plancolor;}
+  to {border-color: @benchcolor;}
+}
+
+@keyframes planToBenchBorder {
+  from {border-color: @plancolor;}
+  to {border-color: @benchcolor;}
+}
+
+@-webkit-keyframes planToBenchCode {
+  from {
+    -webkit-box-shadow: -1px 0px 0px 0px @plancolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @plancolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @plancolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @plancolor;
+  }
+  to {
+    -webkit-box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @benchcolor;
+  }
+}
+
+@keyframes planToBenchCode {
+  from {
+    -webkit-box-shadow: -1px 0px 0px 0px @plancolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @plancolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @plancolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @plancolor;
+  }
+  to {
+    -webkit-box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    -moz-box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    box-shadow: -1px 0px 0px 0px @benchcolor, 0px 0px 0px 1px #dfdfdf;
+    border-left: 10px solid @benchcolor;
+  }
+}
+
+#home.benchmarks-reverse{
+  .body {
+    -webkit-animation-name: planToBenchFore;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+
+    animation-name: planToBenchFore;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+
+    pre[class*="language-"]{
+      -webkit-animation-name: planToBenchCode;
+      -webkit-animation-duration: 1s;
+      -webkit-animation-timing-function: linear;
+
+      animation-name: planToBenchCode;
+      animation-duration: 1s;
+      animation-timing-function: linear;
+    }
+  }
+}
+
+// buttons' animations
+@-webkit-keyframes hoverBenchButton {
+  from {
+    background-color: white;
+    color: @benchcolor;
+  }
+  to {
+    background-color: @benchbackcolor;
+    color: white;
+  }
+}
+
+@keyframes hoverBenchButton {
+  from {
+    background-color: white;
+    color: @benchcolor;
+  }
+  to {
+    background-color: @benchbackcolor;
+    color: white;
+  }
+}
+
+@-webkit-keyframes unhoverBenchButton {
+  from {
+    background-color: @benchbackcolor;
+    color: white;
+  }
+  to {
+    background-color: white;
+    color: @benchcolor;
+  }
+}
+
+@keyframes unhoverBenchButton {
+  from {
+    background-color: @benchbackcolor;
+    color: white;
+  }
+  to {
+    background-color: white;
+    color: @benchcolor;
+  }
+}
+
+@keyframes unhoverBenchButton {
+  from {
+    background-color: @benchbackcolor;
+    color: white;
+  }
+  to {
+    background-color: white;
+    color: @benchcolor;
+  }
+}
+
+.bench-test-button{
+  -webkit-animation-name: unhoverBenchButton;
+  -webkit-animation-duration: .2s;
+  -webkit-animation-timing-function: linear;
+
+  animation-name: unhoverBenchButton;
+  animation-duration: .2s;
+  animation-timing-function: linear;
+  &:hover{
+    -webkit-animation-name: hoverBenchButton;
+    -webkit-animation-duration: .2s;
+    -webkit-animation-timing-function: linear;
+
+    animation-name: hoverBenchButton;
+    animation-duration: .2s;
+    animation-timing-function: linear;
+  }
+}
